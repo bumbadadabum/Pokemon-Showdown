@@ -131,7 +131,9 @@ exports.commands = {
 
 			room.poll = new Poll(room, params[0], options);
 			room.poll.display(user, true);
+			return this.privateModCommand("(A poll was started by " + user.name + ".)");
 		},
+		newhelp: ["/poll new [name] | [options] - Starts a new poll. Requires: % @ # & ~"],
 
 		vote: function (target, room, user) {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
@@ -144,6 +146,7 @@ exports.commands = {
 
 			room.poll.vote(user, parsed);
 		},
+		votehelp: ["/poll vote [number] - Votes for option [number] in the poll. This can also be done by clicking the option in the poll itself."],
 
 		end: function (target, room, user) {
 			if (!this.can(permission, null, room)) return false;
@@ -151,13 +154,15 @@ exports.commands = {
 
 			room.poll.end();
 			delete room.poll;
+			return this.privateModCommand("(The poll was ended by " + user.name + ".)");
 		},
+		endhelp: ["/poll end - Ends the poll and displays the results in chat. Requires: % @ # & ~"],
 
 		'': function (target, room, user) {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
 			if (!this.canBroadcast()) return;
 
-			room.poll.display(user, this.broadcasting);
+			return room.poll.display(user, this.broadcasting);
 		}
 	}
 };
