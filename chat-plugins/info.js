@@ -109,6 +109,19 @@ var commands = exports.commands = {
 		if ((user === targetUser || user.can('makeroom')) && privaterooms) {
 			buf += '<br />Private rooms: ' + privaterooms;
 		}
+
+		if (user.can('roomban') && Object.keys(room.users).indexOf(targetUser.userid) >= 0) {
+			var bannedFrom = "";
+			for (var i = 0; i < Rooms.global.chatRooms.length; i++) {
+				var thisRoom = Rooms.global.chatRooms[i];
+				if (!thisRoom || thisRoom.isPrivate) continue;
+				if (thisRoom.bannedIps && (targetUser.latestIp in thisRoom.bannedIps || targetUser.userid in thisRoom.bannedUsers)) {
+					if (bannedFrom) bannedFrom += ", ";
+					bannedFrom += '<a href="/' + thisRoom + '" room="' + thisRoom + '">' + thisRoom + '</a>';
+				}
+			}
+			if (bannedFrom) buf += '<br />Banned from: ' + bannedFrom;
+		}
 		this.sendReplyBox(buf);
 	},
 	whoishelp: ["/whois - Get details on yourself: alts, group, IP address, and rooms.",
