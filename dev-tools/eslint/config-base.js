@@ -88,7 +88,7 @@ module.exports = {
 		"no-void": 0,
 		"no-warning-comments": 0,
 		"no-with": 2,
-		"radix": 1,
+		"radix": [1, "as-needed"],
 		"vars-on-top": 0,
 		"wrap-iife": [2, "inside"],
 		"yoda": 0,
