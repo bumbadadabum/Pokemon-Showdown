@@ -1,0 +1,1 @@
+The checksums used by Robot9000 mode are stored here, one file per room.
