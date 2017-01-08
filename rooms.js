@@ -1313,6 +1313,11 @@ class ChatRoom extends Room {
 				'Messages must have at least ' + this.slowchat + ' seconds between them.' +
 				'</div>';
 		}
+		if (this.r9k) {
+			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
+				'<a href="https://blog.xkcd.com/2008/01/14/robot9000-and-xkcd-signal-attacking-noise-in-chat/">Robot9000 mode</a> is enabled.' +
+				'</div>';
+		}
 		if (message) message += '</div>';
 		return message;
 	}
